@@ -13,8 +13,9 @@ figsize = (10, 7.5)
 
 def set_figuresize():
     """
-Set the size of a figure. Default {}
-    """.format{figsize}
+Set the size of a figure.
+Default is (10, 7.5)
+    """
 
     params = {"figure.figsize": figsize}
 

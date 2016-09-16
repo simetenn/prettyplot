@@ -1,8 +1,9 @@
 # prettyplot
 Pretty plotting in Python
 
-# Requirements
+## Requirements
+numpy, matplotlib, seaborn, scipy and pandas
 
-seaborn, matplotlib and numpy
-
-pip install numpy, matplotlib, seaborn
+```
+pip install numpy matplotlib seaborn scipy pandas
+```

@@ -324,6 +324,46 @@ palette : hls | husl | matplotlib colormap | seaborn color palette
     set_figuresize()
 
 
+
+def new_figure(sns_style="darkgrid", nr_hues=6, palette=None):
+    """
+Create a new figure
+
+Optional arguments
+
+sns_style : str
+    ["darkgrid" | "whitegrid" | "dark" | "white" | "ticks"]
+    which seaborn style to use base.
+    Default is "darkgrid"
+nr_hues : int
+    the number of hues in the seaborn color palette.
+    Default is 6
+palette : hls | husl | matplotlib colormap | seaborn color palette
+    Set the matplotlib color cycle using a seaborn palette.
+    Availible seaborn palette names:
+        deep, muted, bright, pastel, dark, colorblind
+    Other options:
+        hls, husl, any named matplotlib palette, list of colors
+    Matplotlib paletes can be specified as reversed palettes by appending "_r"
+    to the name or as dark palettes by appending "_d" to the name.
+    (These options are mutually exclusive, but the resulting list of colors
+    can also be reversed).
+    Default is "hsl"
+
+Returns
+----------
+ax : matplotlib.axis object
+    """
+
+    set_style(sns_style=sns_style, nr_hues=nr_hues, palette=palette)
+
+    plt.figure()
+    ax = plt.subplot(111)
+
+    return ax
+
+    
+
 def prettyPlot(x=[], y=None, title="", xlabel="", ylabel="",
                color=None, sns_style="darkgrid", palette=None, nr_hues=6,
                ax=None, new_figure=True,

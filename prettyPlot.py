@@ -570,6 +570,8 @@ ax : matplotlib ax Object
 
     set_style(sns_style, nr_hues=nr_hues, palette=palette)
 
+    print "Does this work"
+
     if ax is None:
         if new_figure:
             plt.figure()

@@ -4,8 +4,8 @@ try:
     from setuptools import setup, find_packages
 
 except ImportError:
-    print "Setuptools is needed to install all dependencies"
-    print "Setuptools: https://pypi.python.org/pypi/setuptools"
+    print("Setuptools is needed to install all dependencies")
+    print("Setuptools: https://pypi.python.org/pypi/setuptools")
 
 
 name = "prettyPlot"

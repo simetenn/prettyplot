@@ -9,6 +9,7 @@ fontsize = 14
 labelsize = 16
 figsize = (10, 7.5)
 ticksize = 5
+ticklabelsize = 10
 linewidth = 2
 markersize = 8
 markeredgewidth = 2
@@ -87,7 +88,9 @@ Set tick style options
     params = {"xtick.color": axis_grey,
               "ytick.color": axis_grey,
               "xtick.major.size": ticksize,
-              "ytick.major.size": ticksize
+              "ytick.major.size": ticksize,
+              "xtick.labelsize": ticklabelsize,
+              "ytick.labelsize": ticklabelsize,
               }
 
     plt.rcParams.update(params)
@@ -116,34 +119,33 @@ def reset_style():
     plt.rcdefaults()
 
 
-# def set_grid(ax, bgcolor="#EAEAF2", linecolor="w", linestyle="-", linewidth=1.3):
-#     """
-# Set background color and grid line options
-#
-# Parameters
-# ----------
-# Required arguments
-# ax : matplotlib.axis
-#     axis object where the background color and grid line options are set
-# bgcolor : str
-#     background color
-# linecolor : str
-#     linecolor color
-# linestyle : str
-#     linestyle
-# linewidth : float
-#     linewidth
-#     """
-#     ax.set_axis_bgcolor(bgcolor)
-#     ax.set_axisbelow("True")
-#     ax.grid(True, color=linecolor, linestyle=linestyle, linewidth=linewidth,
-#             zorder=0)
+def set_grid(ax, bgcolor="#EAEAF2", linecolor="w", linestyle="-", linewidth=1.3):
+    """
+Set background color and grid line options
 
-# def set_spines_colors(ax):
-#     ax.spines["top"].set_edgecolor("None")
-#     ax.spines["bottom"].set_edgecolor(axis_grey)
-#     ax.spines["right"].set_edgecolor("None")
-#     ax.spines["left"].set_edgecolor(axis_grey)
+Parameters
+----------
+Required arguments
+ax : matplotlib.axis
+    axis object where the background color and grid line options are set
+bgcolor : str
+    background color
+    Default is "#EAEAF2"
+linecolor : str
+    linecolor color
+    Default is "w"
+linestyle : str
+    linestyle
+    Default is "-"
+linewidth : float
+    linewidth
+    Default is 1.3
+    """
+    ax.set_axis_bgcolor(bgcolor)
+    ax.set_axisbelow("True")
+    ax.grid(True, color=linecolor, linestyle=linestyle, linewidth=linewidth,
+            zorder=-10)
+
 
 def spines_color(ax, edges={"top": "None", "bottom": axis_grey,
                             "right": "None", "left": axis_grey}):
@@ -221,34 +223,38 @@ color : list of rgb tuples
 
 
 
-# def get_colormap(nr_colors=6):
-#     """
-# Get the hls color palette from seaborn
-#
-# Parameters
-# ----------
-# Optional arguments
-# nr_colors : int
-#     the number of hues in the seaborn color palette.
-#     Default is 6
-#
-#
-# Returns
-# ----------
-# color : list of rgb tuples
-#     """
-#     return sns.color_palette("hls", nr_colors)
-#
-#
-# def get_current_colormap():
-#     """
-# Get the current color palette
-#
-# Returns
-# ----------
-# color : list of rgb tuples
-#     """
-#     return sns.color_palette()
+def get_colormap(palette="hls", nr_colors=6):
+    """
+Get the color palette from seaborn
+
+Parameters
+----------
+Optional arguments
+palette : str
+    the color palette to get
+    Default is "hsl"
+nr_colors : int
+    the number of colors in the seaborn color palette.
+    Default is 6
+
+
+Returns
+----------
+color : list of rgb tuples
+    """
+    return sns.color_palette(palette, nr_colors)
+
+
+
+def get_current_colormap():
+    """
+Get the current color palette
+
+Returns
+----------
+color : list of rgb tuples
+    """
+    return sns.color_palette()
 
 
 def set_title(title, ax=None, **kwargs):
@@ -346,7 +352,7 @@ style : str
     which matplotlib style to use as base.
     Default is "seaborn-darkgrid"
 nr_colors : int
-    the number of hues in the seaborn color palette.
+    the number of colors in the seaborn color palette.
     Default is 6
 palette : hls | husl | matplotlib colormap | seaborn color palette
     Set the matplotlib color cycle using a seaborn palette.
@@ -369,6 +375,7 @@ custom : bool
     plt.style.use(style)
     sns.set_palette(palette, n_colors=nr_colors)
 
+
     if custom:
         set_font()
         set_linestyle()
@@ -386,11 +393,17 @@ Create a new figure
 Optional arguments
 
 style : str
-    ["darkgrid" | "whitegrid" | "dark" | "white" | "ticks"]
-    which seaborn style to use base.
-    Default is "darkgrid"
+    ["classic" | "dark_background" | "seaborn-pastel" |
+    "seaborn" | "seaborn-deep" | "seaborn-colorblind" |
+    "bmh" | "seaborn-white" | "seaborn-dark" | "seaborn-poster" |
+    "seaborn-ticks" | "seaborn-bright" | "seaborn-whitegrid" |
+    "seaborn-notebook" | "fivethirtyeight" | "seaborn-muted" |
+    "grayscale" | "ggplot" | "seaborn-talk" | "seaborn-darkgrid" |
+    "seaborn-dark-palette" | "seaborn-paper"]
+    which matplotlib style to use as base.
+    Default is "seaborn-darkgrid"
 nr_colors : int
-    the number of hues in the seaborn color palette.
+    the number of colors in the seaborn color palette.
     Default is 6
 palette : hls | husl | matplotlib colormap | seaborn color palette
     Set the matplotlib color cycle using a seaborn palette.
@@ -418,9 +431,18 @@ ax : matplotlib.axis object
 
 
 
-def prettyPlot(x=[], y=None, title="", xlabel="", ylabel="",
-               color=None, style="seaborn-darkgrid", custom_style=True, palette=None, nr_colors=6,
-               ax=None, new_figure=True, zorder=3, **kwargs):
+def prettyPlot(x=[], y=None,
+               title="",
+               xlabel="",
+               ylabel="",
+               color=None,
+               style="seaborn-darkgrid",
+               custom_style=True,
+               palette=None,
+               nr_colors=6,
+               ax=None,
+               new_figure=True,
+               zorder=3, **kwargs):
     """
 prettyPlot
 
@@ -451,9 +473,15 @@ color : int
     Color of the line, given as a int.
     Uses #color from the current colormap
 style : str
-    ["darkgrid" | "whitegrid" | "dark" | "white" | "ticks"]
-    which seaborn style to use base.
-    Default is "darkgrid"
+    ["classic" | "dark_background" | "seaborn-pastel" |
+    "seaborn" | "seaborn-deep" | "seaborn-colorblind" |
+    "bmh" | "seaborn-white" | "seaborn-dark" | "seaborn-poster" |
+    "seaborn-ticks" | "seaborn-bright" | "seaborn-whitegrid" |
+    "seaborn-notebook" | "fivethirtyeight" | "seaborn-muted" |
+    "grayscale" | "ggplot" | "seaborn-talk" | "seaborn-darkgrid" |
+    "seaborn-dark-palette" | "seaborn-paper"]
+    which matplotlib style to use as base.
+    Default is "seaborn-darkgrid"
 custom_style : bool
     If custom style should be used in adittion to the standard style.
     Default is True
@@ -469,8 +497,8 @@ palette : hls | husl | matplotlib colormap | seaborn color palette
     can also be reversed).
     Default is "hsl"
 nr_colors : int
-    the number of hues to be used with the seaborn color palette
-    #hues different colors
+    the number of colors to be used with the seaborn color palette
+    #colors different colors
 ax : matplotlib.axis object
     Axis object where to plot
     Default is None
@@ -495,6 +523,7 @@ ax : matplotlib.axis object
 
     set_style(style, nr_colors=nr_colors, palette=palette, custom=custom_style)
 
+
     if ax is None:
         if new_figure:
             ax = create_figure(style=style,
@@ -516,16 +545,18 @@ ax : matplotlib.axis object
     set_xlabel(xlabel, ax)
     set_ylabel(ylabel, ax)
 
-    # reset_style()
-
-
     if y is None:
         y = x
         x = range(len(y))
 
 
+    print(nr_colors)
+    print(len(sns.color_palette()))
+
+
     if color is not None:
         colors = sns.color_palette()
+        print(colors)
         color = colors[color]
 
 
@@ -547,11 +578,25 @@ ax : matplotlib.axis object
 
 
 # TODO updated doc string
-def prettyBar(x, error=None, index=None, color=None,
-              title="", xlabels=[], xticks=None, ylabel="",
-              width=0.2, linewidth=0, ax=None, new_figure=True,
-              style="dark", palette=None, nr_colors=6,
-              error_kw=None, **kwargs):
+def prettyBar(x, error=None,
+              index=None,
+              color=None,
+              title="",
+              xlabels=[],
+              xticks=None,
+              ylabel="",
+              width=0.2,
+              linewidth=0,
+              ax=None,
+              new_figure=True,
+              style="seaborn-dark",
+              palette=None,
+              nr_colors=6,
+              error_kw={"ecolor": axis_grey,
+                        "lw": 2,
+                        "capsize": 10,
+                        "capthick": 2},
+              **kwargs):
     """
 Creates pretty bar plots, just a wrapper around matplotlib and seaborn.
 Customizing several matplotlib options
@@ -598,9 +643,15 @@ new_figure : bool
     ontop of the last existing plot.
     Default is True.
 style : str
-    ["darkgrid" | "whitegrid" | "dark" | "white" | "ticks"]
-    which seaborn style to use base.
-    Default is "dark"
+    ["classic" | "dark_background" | "seaborn-pastel" |
+    "seaborn" | "seaborn-deep" | "seaborn-colorblind" |
+    "bmh" | "seaborn-white" | "seaborn-dark" | "seaborn-poster" |
+    "seaborn-ticks" | "seaborn-bright" | "seaborn-whitegrid" |
+    "seaborn-notebook" | "fivethirtyeight" | "seaborn-muted" |
+    "grayscale" | "ggplot" | "seaborn-talk" | "seaborn-darkgrid" |
+    "seaborn-dark-palette" | "seaborn-paper"]
+    which matplotlib style to use as base.
+    Default is "seaborn-dark"
 palette : hls | husl | matplotlib colormap | seaborn color palette
     Set the matplotlib color cycle using a seaborn palette.
     Availible seaborn palette names:
@@ -613,8 +664,8 @@ palette : hls | husl | matplotlib colormap | seaborn color palette
     can also be reversed).
     Default is "hsl"
 nr_colors : int
-    the number of hues to be used with the seaborn color palette
-    #hues different colors
+    the number of colors to be used with the seaborn color palette
+    #colors different colors
 error_kw : dict
     Dictionary of kwargs to be passed to errorbar method.
     ecolor and capsize may be specified here rather than as independent kwargs.

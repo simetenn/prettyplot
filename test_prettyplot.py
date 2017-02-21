@@ -14,7 +14,9 @@ class TestPrettyPlot(unittest.TestCase):
 
 
     def test_prettyPlotX(self):
+
         prettyPlot(self.U)
+
         plt.close()
 
 

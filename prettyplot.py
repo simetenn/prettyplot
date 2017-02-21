@@ -1,13 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
+import seaborn.apionly as sns
 
 
 axis_grey = (0.6, 0.6, 0.6)
 titlesize = 20
 fontsize = 14
 labelsize = 16
-ticksize = 5
 figsize = (10, 7.5)
 
 
@@ -37,16 +36,14 @@ ax : matplotlib.axis
     Default is None
     """
     params = {
-        'legend.fontsize': 'medium',
-        'legend.handlelength': 2.2,
-        'legend.frameon': True,
-        'legend.numpoints': 1,
-        'legend.scatterpoints': 1,
-        'legend.fontsize': fontsize,
-        'legend.handlelength': 2.2,
-        'legend.borderpad': 0.5,
-        'legend.framealpha': 2,
-        'legend.fancybox': True
+        "legend.frameon": True,
+        "legend.numpoints": 1,
+        "legend.scatterpoints": 1,
+        "legend.fontsize": fontsize,
+        "legend.handlelength": 2.2,
+        "legend.borderpad": 0.5,
+        "legend.framealpha": 2,
+        "legend.fancybox": True
     }
     plt.rcParams.update(params)
 
@@ -61,47 +58,75 @@ def set_font():
     """
 Set font options. Note, uses latex.
     """
-    plt.rcParams['text.latex.preamble'] = [r"\usepackage{lmodern}"]
-
-    params = {'text.usetex': True,
-              'font.family': 'lmodern',
-              #   'axes.facecolor': "white",
-              'axes.titlesize': titlesize,
-              'axes.labelsize': labelsize,
-              'axes.edgecolor': axis_grey,
-              'axes.linewidth': 1,
-              'lines.linewidth': 2,
-              "xtick.major.size": ticksize,
-              'xtick.color': axis_grey,
-              "ytick.major.size": ticksize,
-              'ytick.color': axis_grey
+    params = {"text.usetex": True,
+              "text.latex.preamble": r"\usepackage{lmodern}",
+              "font.family": "lmodern",
+              "font.weight": "normal"
               }
 
     plt.rcParams.update(params)
 
 
-def set_grid(ax, bgcolor="#EAEAF2", linecolor="w", linestyle="-", linewidth=1.3):
+def set_linestyle():
     """
-Set background color and grid line options
+Set line style options
+    """
 
-Parameters
-----------
-Required arguments
-ax : matplotlib.axis
-    axis object where the background color and grid line options are set
-bgcolor : str
-    background color
-linecolor : str
-    linecolor color
-linestyle : str
-    linestyle
-linewidth : float
-    linewidth
+    params = {"lines.linewidth": 2,
+              "lines.marker": None,
+              "lines.antialiased": True
+              }
+
+    plt.rcParams.update(params)
+
+
+def set_tickstyle():
     """
-    ax.set_axis_bgcolor(bgcolor)
-    ax.set_axisbelow("True")
-    ax.grid(True, color=linecolor, linestyle=linestyle, linewidth=linewidth,
-            zorder=0)
+Set tick style options
+    """
+
+    params = {"xtick.color": axis_grey,
+              "ytick.color": axis_grey}
+
+    plt.rcParams.update(params)
+
+
+def set_axestyle():
+    """
+Set tick style options
+    """
+
+    params = {"axes.titlesize": titlesize,
+              "axes.labelsize": labelsize,
+              "axes.edgecolor": axis_grey,
+              "axes.linewidth": 1
+              }
+
+    plt.rcParams.update(params)
+
+
+# def set_grid(ax, bgcolor="#EAEAF2", linecolor="w", linestyle="-", linewidth=1.3):
+#     """
+# Set background color and grid line options
+#
+# Parameters
+# ----------
+# Required arguments
+# ax : matplotlib.axis
+#     axis object where the background color and grid line options are set
+# bgcolor : str
+#     background color
+# linecolor : str
+#     linecolor color
+# linestyle : str
+#     linestyle
+# linewidth : float
+#     linewidth
+#     """
+#     ax.set_axis_bgcolor(bgcolor)
+#     ax.set_axisbelow("True")
+#     ax.grid(True, color=linecolor, linestyle=linestyle, linewidth=linewidth,
+#             zorder=0)
 
 # def set_spines_colors(ax):
 #     ax.spines["top"].set_edgecolor("None")
@@ -109,10 +134,10 @@ linewidth : float
 #     ax.spines["right"].set_edgecolor("None")
 #     ax.spines["left"].set_edgecolor(axis_grey)
 
-def spines_edge_color(ax, edges={"top": "None", "bottom": axis_grey,
-                                 "right": "None", "left": axis_grey}):
+def spines_color(ax, edges={"top": "None", "bottom": axis_grey,
+                            "right": "None", "left": axis_grey}):
     """
-Set spines edge color
+Set spines color
 
 Parameters
 ----------
@@ -123,7 +148,7 @@ edges : dictionary
     edges as keys with colors as key values
     """
 
-    for edge, color in edges.iteritems():
+    for edge, color in edges.items():
         ax.spines[edge].set_edgecolor(color)
 
 
@@ -185,34 +210,34 @@ color : list of rgb tuples
 
 
 
-def get_colormap(nr_hues=6):
-    """
-Get the hls color palette from seaborn
-
-Parameters
-----------
-Optional arguments
-nr_hues : int
-    the number of hues in the seaborn color palette.
-    Default is 6
-
-
-Returns
-----------
-color : list of rgb tuples
-    """
-    return sns.color_palette("hls", nr_hues)
-
-
-def get_current_colormap():
-    """
-Get the current color palette
-
-Returns
-----------
-color : list of rgb tuples
-    """
-    return sns.color_palette()
+# def get_colormap(nr_hues=6):
+#     """
+# Get the hls color palette from seaborn
+#
+# Parameters
+# ----------
+# Optional arguments
+# nr_hues : int
+#     the number of hues in the seaborn color palette.
+#     Default is 6
+#
+#
+# Returns
+# ----------
+# color : list of rgb tuples
+#     """
+#     return sns.color_palette("hls", nr_hues)
+#
+#
+# def get_current_colormap():
+#     """
+# Get the current color palette
+#
+# Returns
+# ----------
+# color : list of rgb tuples
+#     """
+#     return sns.color_palette()
 
 
 def set_title(title, ax=None):
@@ -424,7 +449,7 @@ new_figure : bool
     ontop of the last existing plot.
     Default is True.
 linestyle: str
-    ['solid' | 'dashed', 'dashdot', 'dotted' | (offset, on-off-dash-seq) | '-' | '--' | '-.' | ':' | 'None' | ' ' | '']
+    ["solid" | "dashed", "dashdot", "dotted" | (offset, on-off-dash-seq) | "-" | "--" | "-." | ":" | "None" | " " | ""]
 linewidth : int
     width of the plotted lines.
     Default is 2
@@ -600,7 +625,7 @@ ax : matplotlib ax Object
         colors = sns.color_palette()[color]
 
     ax.bar(index, x, yerr=error, color=colors, width=width,
-           align='center', linewidth=linewidth, error_kw=error_kw,
+           align="center", linewidth=linewidth, error_kw=error_kw,
            edgecolor=axis_grey, **kwargs)
 
     ax.set_xticks(xticks)

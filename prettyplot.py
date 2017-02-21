@@ -335,7 +335,7 @@ color : matplotlib accepted color
         ax.set_ylabel(ylabel, fontsize=labelsize, color=color, **kwargs)
 
 
-def set_style(style="seaborn-darkgrid", nr_colors=6, palette=None, custom=True):
+def set_style(style="seaborn-darkgrid", nr_colors=6, palette="hls", custom=True):
     """
 Set the style of a plot
 
@@ -369,9 +369,6 @@ custom : bool
     If custom style should be used in adittion to the standard style.
     Default is True
     """
-    # sns.set_style(style)
-
-
     plt.style.use(style)
     sns.set_palette(palette, n_colors=nr_colors)
 
@@ -386,7 +383,7 @@ custom : bool
 
 
 
-def create_figure(style="seaborn-darkgrid", nr_colors=6, palette=None, custom_style=True):
+def create_figure(style="seaborn-darkgrid", nr_colors=6, palette="hls", custom_style=True):
     """
 Create a new figure
 
@@ -438,7 +435,7 @@ def prettyPlot(x=[], y=None,
                color=None,
                style="seaborn-darkgrid",
                custom_style=True,
-               palette=None,
+               palette="hls",
                nr_colors=6,
                ax=None,
                new_figure=True,
@@ -550,17 +547,12 @@ ax : matplotlib.axis object
         x = range(len(y))
 
 
-    print(nr_colors)
-    print(len(sns.color_palette()))
-
-
     if color is not None:
         colors = sns.color_palette()
-        print(colors)
         color = colors[color]
 
 
-    ax.plot(x, y, color=color, zorder=zorder, **kwargs)
+    ax.plot(x, y, zorder=zorder, **kwargs)
 
     if custom_style:
         ax.yaxis.offsetText.set_fontsize(labelsize)
@@ -590,7 +582,7 @@ def prettyBar(x, error=None,
               ax=None,
               new_figure=True,
               style="seaborn-dark",
-              palette=None,
+              palette="hls",
               nr_colors=6,
               error_kw={"ecolor": axis_grey,
                         "lw": 2,

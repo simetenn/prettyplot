@@ -383,6 +383,7 @@ custom : bool
 
 
 
+
 def create_figure(style="seaborn-darkgrid", nr_colors=6, palette="hls", custom_style=True):
     """
 Create a new figure
@@ -426,6 +427,20 @@ ax : matplotlib.axis object
 
     return ax
 
+
+
+def set_legend(labels, ax=None):
+
+    if ax is None:
+        ax = plt.gca()
+
+    color = ax.get_facecolor()
+    print color
+
+    legend = plt.legend(labels)
+
+    frame = legend.get_frame()
+    frame.set_facecolor(color)
 
 
 def prettyPlot(x=[], y=None,
@@ -552,7 +567,7 @@ ax : matplotlib.axis object
         color = colors[color]
 
 
-    ax.plot(x, y, zorder=zorder, **kwargs)
+    ax.plot(x, y, color=color, zorder=zorder, **kwargs)
 
     if custom_style:
         ax.yaxis.offsetText.set_fontsize(labelsize)

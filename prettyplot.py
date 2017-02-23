@@ -115,7 +115,6 @@ Set tick style options
 
 
 def reset_style():
-    # sns.reset_orig()
     plt.rcdefaults()
 
 
@@ -577,7 +576,6 @@ ax : matplotlib.axis object
 
     # ax.set_xlim([min(x), max(x)])
     # ax.set_ylim([min(y), max(y)])
-
 
     return ax
 

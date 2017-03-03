@@ -453,7 +453,13 @@ def prettyPlot(x=[], y=None,
                nr_colors=6,
                ax=None,
                new_figure=True,
-               zorder=3, **kwargs):
+               zorder=3,
+               yerr=None,
+               xerr=None,
+               ecolor=None,
+               capsize=5,
+               capthick=2,
+               **kwargs):
     """
 prettyPlot
 
@@ -566,7 +572,27 @@ ax : matplotlib.axis object
         color = colors[color]
 
 
-    ax.plot(x, y, color=color, zorder=zorder, **kwargs)
+
+    p = ax.plot(x, y, color=color, zorder=zorder, **kwargs)
+
+    if xerr is not None or yerr is not None:
+        # Get the last plotted color
+        color = p[-1].get_color()
+        if ecolor is not None:
+            ecolors = sns.color_palette()
+            ecolor = ecolors[ecolor]
+        else:
+            ecolor = color
+
+        ax.errorbar(x, y,
+                    color=color,
+                    zorder=zorder,
+                    xerr=xerr,
+                    yerr=yerr,
+                    ecolor=ecolor,
+                    capsize=capsize,
+                    capthick=capthick,
+                    **kwargs)
 
     if custom_style:
         ax.yaxis.offsetText.set_fontsize(labelsize)

@@ -486,9 +486,9 @@ xlabel : str
 ylabel : str
     Ylabel of the plot.
     Default is ""
-color : int
-    Color of the line, given as a int.
-    Uses #color from the current colormap
+color : int | matplotlib color arg
+    Color of the line. If given as a int uses #color from the current colormap.
+    Else it is a matplotlib color argument.
 style : str
     ["classic" | "dark_background" | "seaborn-pastel" |
     "seaborn" | "seaborn-deep" | "seaborn-colorblind" |
@@ -530,6 +530,25 @@ linewidth : int
     Default is 2
 marker : accepted matplotlib marker
     marker for each plot point
+xerr/yerr : scalar or array-like, shape(n,1) or shape(2,n), optional
+    If a scalar number, len(N) array-like object,
+    or an Nx1 array-like object, errorbars are drawn at +/-value relative to the
+    data.
+    If a sequence of shape 2xN, errorbars are drawn at -row1 and +row2 relative
+    to the data.
+    Default is None.
+ecolor : int | matplotlib color arg
+    Color of the line. If given as a int uses #color from the current colormap.
+    Else it is a matplotlib color argument.
+    If None, use the color of the line connecting the markers.
+    Default is None.
+capsize : int
+    The length of the error bar caps in points;
+    if None, it will take the value from errorbar.capsize rcParam.
+    Default is 5.
+capthick : int
+    Controls the thickness of the error bar cap in points.
+    Default is 2.
 **kwargs : named arguments
     arguments sent directly to matplotlib plot(**kwargs)
 
@@ -568,8 +587,9 @@ ax : matplotlib.axis object
 
 
     if color is not None:
-        colors = sns.color_palette()
-        color = colors[color]
+        if isinstance(color, int):
+            colors = sns.color_palette()
+            color = colors[color]
 
 
 
@@ -593,6 +613,8 @@ ax : matplotlib.axis object
                     capsize=capsize,
                     capthick=capthick,
                     **kwargs)
+
+
 
     if custom_style:
         ax.yaxis.offsetText.set_fontsize(labelsize)

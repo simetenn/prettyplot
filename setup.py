@@ -8,7 +8,7 @@ except ImportError:
     print("Setuptools: https://pypi.python.org/pypi/setuptools")
 
 
-name = "prettyPlot"
+name = "prettyplot"
 version = "0.8"
 
 prettyplot_req = ["seaborn", "matplotlib", "numpy"]
